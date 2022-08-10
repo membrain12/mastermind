@@ -8,11 +8,11 @@ class Game:
         self.code = []
         self.player_guess = []
         self.quit = False
+        self.finished = False
 
     def make_code(self):
         arr = random.sample(self.colors, 4)
         self.code = arr
-        print(self.code)
 
     def make_choice(self):
         print("Choose 4 of these colors with no repeats\n")
@@ -43,14 +43,23 @@ class Game:
                 continue
             else:
                 feedback.append([guess, "Wrong"])
+        if self.check_win(feedback):
+            print("You Win!!!")
+            self.finished = True
+            return
         print(f"Round: {self.turn}")
         print(feedback)
         print()
+    def check_win(self, arr):
+        for i in arr:
+            if i != "Correct":
+                return False
+        return True
 
     def play(self):
-        game.make_code()
+        self.make_code()
 
-        while(self.turn < 13):
+        while not self.finished and self.turn < 13:
             game.make_choice()
             game.check_guess()
 

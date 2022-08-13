@@ -78,7 +78,8 @@ class Game
                 self.check_guess
             end
         else
-            return
+            player_make_code
+        end
 
         
     end
@@ -92,6 +93,20 @@ class Game
         end
         return choice
     end 
+
+    def player_make_code
+        arr = []
+
+        puts "You'll need to choose 4 colors for your code"
+
+        while arr.length < 4
+            puts "Please choose color ##{arr.length + 1} from #{@colors}"
+            color = gets.chomp
+            next unless @colors.include? color
+            arr << color
+        end
+        @code = arr
+    end
 end
 
 game = Game.new()

@@ -69,12 +69,29 @@ class Game
     end
 
     def play
-        self.make_code
-        while @stop == false
-            self.make_choice
-            self.check_guess
-        end
+        game_mode = guess_or_create
+
+        if game_mode == "guess"
+            self.make_code
+            while @stop == false
+                self.make_choice
+                self.check_guess
+            end
+        else
+            return
+
+        
     end
+
+    def guess_or_create
+        puts "Do you want to create the code or guess?"
+        choice = ""
+        while choice != "create" && choice != "guess"
+            puts "Please type create or guess"
+            choice = gets.chomp
+        end
+        return choice
+    end 
 end
 
 game = Game.new()

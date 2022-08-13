@@ -6,6 +6,7 @@ class Game
             'black', 'orange', 'white', 'purple']
         @code = []
         @player_choice = []
+        @player = "The Player"
         @stop = false
     end
 
@@ -59,7 +60,7 @@ class Game
         end
         if @player_choice == @code
             @stop = true 
-            puts "You Win!"
+            puts "#{@player} Wins!"
             return
         end
         
@@ -79,6 +80,10 @@ class Game
             end
         else
             player_make_code
+            while @stop == false
+                comp_make_guess
+                check_guess
+            end
         end
 
         
@@ -91,6 +96,7 @@ class Game
             puts "Please type create or guess"
             choice = gets.chomp
         end
+        @player = "The Computer" if choice == "create"
         return choice
     end 
 
@@ -106,6 +112,11 @@ class Game
             arr << color
         end
         @code = arr
+    end
+
+    def comp_make_guess
+        guess = @colors.sample(4)
+        @player_choice = guess
     end
 end
 

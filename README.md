@@ -2,4 +2,4 @@
 
 The Mastermind project from Ruby Course
 
-Will be completing this and future projects in Python
+Helps cement the learning about classes we've done

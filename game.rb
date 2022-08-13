@@ -6,11 +6,13 @@ class Game
             'black', 'orange', 'white', 'purple']
         @code = []
         @player_choice = []
+        @stop = false
     end
 
     def make_code()
         arr = @colors.sample(4)
         @code = arr
+        puts "Round #{@turn}"
     end
 
     def make_choice()
@@ -24,6 +26,10 @@ class Game
         while arr.length < 4
             puts "Color ##{arr.length + 1}"
             choice = gets.chomp
+            if choice == "quit"
+                @stop = true
+                return
+            end
             if arr.include?(choice)
                 print("That color has already been chosen")
                 next
@@ -38,7 +44,38 @@ class Game
         end
         @player_choice = arr
     end
+
+    def check_guess()
+        return if @stop
+        result = []
+        @player_choice.each_with_index do |k, i|
+            if !@code.include?(k)
+                result << "Color not included"
+            elsif @code[i]  == k
+                result << "Correct"
+            else 
+                result << "Correct Color, but Wrong Spot"
+            end 
+        end
+        if @player_choice == @code
+            @stop = true 
+            puts "You Win!"
+            return
+        end
+        
+        @turn += 1
+        p result
+        puts "Round #{@turn} of 12"
+    end
+
+    def play
+        self.make_code
+        while @stop == false
+            self.make_choice
+            self.check_guess
+        end
+    end
 end
 
 game = Game.new()
-game.make_choice
+game.play
